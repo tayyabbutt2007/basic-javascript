@@ -24,38 +24,59 @@ function logFuction(operator, prevValue, enterValue, resultFromCalc){
     console.log(loggingArray);
 }
 
-
-function divide(){
+function conditionalCalc(operatorString) {
     const enteredNumber = inputNumberValue();
     const beforeCalc = currentValue;
-    currentValue /= enteredNumber;
-    discriptionOutput('/', beforeCalc, enteredNumber);
-    logFuction("DIVIDE", beforeCalc, enteredNumber, currentValue);
+    let operatorSign;
+
+    if (operatorString !== 'ADD' &&
+        operatorString !== 'SUBTRACT' &&
+        operatorString !== 'MULTIPLY' &&
+        operatorString !== 'DIVIDE' ||
+        !enteredNumber  
+    ) {
+        return;
+    }
+
+    if (operatorString === 'ADD'){
+        currentValue += enteredNumber;
+        operatorSign = '+';
+    }
+    else if (operatorString === 'SUBTRACT'){
+        currentValue -= enteredNumber;
+        operatorSign = '-';
+    }
+    else if (operatorString === 'MULTIPLY'){
+        currentValue *= enteredNumber;
+        operatorSign = '*';
+    }
+    else if (operatorString === 'DIVIDE'){
+        currentValue /= enteredNumber;
+        operatorSign = '/';
+    }
+    discriptionOutput(operatorSign, beforeCalc, enteredNumber);
+    logFuction(operatorString, beforeCalc, enteredNumber, currentValue);
+}
+
+function divide(){
+    conditionalCalc('DIVIDE');
 }
 
 function multiply(){
-    const enteredNumber = inputNumberValue();
-    const beforeCalc = currentValue;
-    currentValue = currentValue * enteredNumber;
-    discriptionOutput('*', beforeCalc, enteredNumber);
-    logFuction("MULTILY", beforeCalc, enteredNumber, currentValue);
+    conditionalCalc('MULTIPLY');
 }
 
 function subtract(){
-    const enteredNumber = inputNumberValue();
-    const beforeCalc = currentValue;
-    currentValue = currentValue - enteredNumber;
-    discriptionOutput('-', beforeCalc, enteredNumber);
-    logFuction("SUBTRACT", beforeCalc, enteredNumber, currentValue);
+    conditionalCalc('SUBTRACT');
 }
 
 function add(){
-    const enteredNumber = inputNumberValue();
-    const beforeCalc = currentValue;
-    currentValue += enteredNumber;
-    discriptionOutput('+', beforeCalc, enteredNumber);
-    logFuction("ADD", beforeCalc, enteredNumber, currentValue);
+    conditionalCalc('ADD');
 }
+
+
+
+
 addBtn.addEventListener('click', add);
 subtractBtn.addEventListener('click', subtract);
 multiplyBtn.addEventListener('click', multiply);
